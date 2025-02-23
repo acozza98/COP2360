@@ -1,0 +1,64 @@
+class Program
+{
+    static void Main(string[] args)
+    {
+        try
+        {
+            // Clear console and show title
+            Console.Clear();
+            Console.WriteLine("Division Calculator\n");
+
+            // Get first number with validation
+            Console.Write("Enter the first number: ");
+            string? input1 = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(input1))
+            {
+                Console.WriteLine("Error: First number cannot be empty.");
+                return;
+            }
+
+            // Get second number with validation
+            Console.Write("Enter the second number: ");
+            string? input2 = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(input2))
+            {
+                Console.WriteLine("Error: Second number cannot be empty.");
+                return;
+            }
+
+            // Convert and calculate
+            int number1 = Convert.ToInt32(input1);
+            int number2 = Convert.ToInt32(input2);
+
+            decimal result = Divide(number1, number2);
+            Console.WriteLine($"\nThe result of {number1} divided by {number2} is: {result:F2}");
+        }
+        catch (FormatException ex)
+        {
+            Console.WriteLine("\nError: One or both of the inputs are not valid integers.");
+            Console.WriteLine($"Detailed error message: {ex.Message}");
+        }
+        catch (DivideByZeroException ex)
+        {
+            Console.WriteLine("\nError: Division by zero is not allowed.");
+            Console.WriteLine($"Detailed error message: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("\nAn unexpected error occurred.");
+            Console.WriteLine($"Detailed error message: {ex.Message}");
+        }
+        finally
+        {
+            // Always execute cleanup code
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
+        }
+    }
+
+    static decimal Divide(int a, int b)
+    {
+        // Cast to decimal for more precise division
+        return (decimal)a / b;
+    }
+}
